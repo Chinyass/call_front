@@ -1,18 +1,23 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>asdasd {{usernameData}}</p>
+    <CDRTABLE />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import CDRTABLE from '../components/Table.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    CDRTABLE
+  },
+  data: () => {
+    return {
+      usernameData : JSON.parse(localStorage.getItem('user'))
+    }
   }
 }
 </script>
