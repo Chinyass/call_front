@@ -1,6 +1,7 @@
 <template>
   <div class="main" >
     <h1>Welcome!</h1>
+    <br />
     <input
       type="text"
       name="username"
@@ -10,6 +11,7 @@
       v-model="form.email"
     />
     <br />
+    <br />
     <input
       type="password"
       name="password"
@@ -18,6 +20,7 @@
       :style="input"
       v-model="form.password"
     />
+    <br />
     <br />
     <input
       type="button"
@@ -45,11 +48,13 @@ export default {
   },
   methods: {
       Login(){
-          console.log(this.form.email, this.form.password)
           axios.post('http://localhost:4000/api/user/login',{Email: this.form.email, Password: this.form.password }).then( res => {
               const data = res.data
+              console.log('ot servera',data)
+              this.$store.commit('SET_USERDATA', data);
               localStorage.setItem('user', JSON.stringify(data));
-              console.log(data)
+          }).catch( e => {
+              console.log('ot servera',e)
           })
         
       }
@@ -61,7 +66,7 @@ export default {
 /* Import Poppins font: */
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 .main {
-  background: rgba(255, 255, 255, 0.4);
+  background-color: rgba(43, 3, 223, 0.844);
   position: absolute;
   top: 20%;
   left: 30%;
