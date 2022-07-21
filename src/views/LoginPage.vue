@@ -30,6 +30,8 @@
       @click="Login"
     />
     <br />
+    <br />
+    <b-alert v-if="incorrect_data" show variant="danger"><p>Некорректные данные</p></b-alert>
   </div>
 </template>
 
@@ -43,7 +45,8 @@ export default {
           form : {
               email : '',
               password : ''
-          }
+          },
+          incorrect_data: false
       }
   },
   methods: {
@@ -53,8 +56,14 @@ export default {
               console.log('ot servera',data)
               this.$store.commit('SET_USERDATA', data);
               localStorage.setItem('user', JSON.stringify(data));
+              this.$router.push({name: 'Home'})
           }).catch( e => {
               console.log('ot servera',e)
+              this.incorrect_data = true
+
+              setTimeout( () => {
+                this.incorrect_data = false
+              },3000)
           })
         
       }

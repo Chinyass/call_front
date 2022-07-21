@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header />
-    <router-view/>
+    <div id="rview">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -14,5 +16,7 @@ export default {
 }
 </script>
 <style>
-
+  #rview{
+    margin: 2%
+  }
 </style>

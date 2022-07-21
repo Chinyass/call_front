@@ -3,14 +3,12 @@
         <div id='header-list'>
             <ul>
                 <li><a class="header-a" @click="change_page('Home')">Home</a></li>
-                <li><a class="header-a" @click="change_page('Login')">to Login</a></li>
+                <li><a class="header-a" @click="change_page('Login')">Мои звонки</a></li>
             </ul>
         </div>
         <div id='header-right'>
             <b-dropdown v-if="username" id="dropdown-left" :text="username" variant="primary" class="m-2">
                 <b-dropdown-item @click="logout">Logout</b-dropdown-item>
-                <b-dropdown-item href="#">Another action</b-dropdown-item>
-                <b-dropdown-item href="#">Something else here</b-dropdown-item>
             </b-dropdown>
         </div>
     </div>
@@ -79,7 +77,7 @@ export default {
 
  li {
   float: left;
-  margin-right: 12%;
+  margin-right: 7%;
  }
 
  .header-a {
