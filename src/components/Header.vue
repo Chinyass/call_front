@@ -3,7 +3,7 @@
         <div id='header-list'>
             <ul>
                 <li><a class="header-a" @click="change_page('Home')">Home</a></li>
-                <li><a class="header-a" @click="change_page('Login')">Мои звонки</a></li>
+                <li><a class="header-a" @click="change_page('UserCalls')">Мои звонки</a></li>
             </ul>
         </div>
         <div id='header-right'>
