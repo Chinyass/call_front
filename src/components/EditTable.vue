@@ -53,15 +53,14 @@ export default {
             
         },
         info(item, index, button){
-            this.infoModal.title = `Row index: ${index}`
-            this.infoModal.content = JSON.stringify(item, null, 2)
             this.cdrid = item.id
+            this.selected = item.reason
             this.$root.$emit('bv::show::modal', this.infoModal.id, button)
         },
         resetInfoModal() {
             this.infoModal.title = ''
             this.infoModal.content = ''
-            console.log(this.cdrid,this.selected)
+            
             axios.post('http://localhost:4000/api/cdr/updateReason',{id: this.cdrid, reason: this.selected }).then( res => {
                 console.log(res.data)
             })
