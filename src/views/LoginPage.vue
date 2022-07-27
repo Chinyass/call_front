@@ -51,7 +51,7 @@ export default {
   },
   methods: {
       Login(){
-          axios.post('http://localhost:4000/api/user/login',{Email: this.form.email, Password: this.form.password }).then( res => {
+          axios.post('http://172.16.25.43:4000/api/user/login',{Email: this.form.email, Password: this.form.password }).then( res => {
               const data = res.data
               console.log('ot servera',data)
               this.$store.commit('SET_USERDATA', data);
