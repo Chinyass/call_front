@@ -1,24 +1,31 @@
 <template>
   <div class="home">
     <center><h2>Звонки отдела {{department_name}}</h2></center>
-    <b-container>
-      <div>
-        <label for="example-datepicker">От</label>
-        <b-form-datepicker id="example-datepicker" v-model="value_from" class="mb-2"></b-form-datepicker>
-      </div>
-      <div>
-        <label for="example-datepicker2">До</label>
-        <b-form-datepicker id="example-datepicker2" v-model="value_to" class="mb-2"></b-form-datepicker>  
-      </div>
-      <CDRTABLE :items="items" />
-      <b-pagination
-          v-model="currentPage"
-          :total-rows="rows"
-          :per-page="perPage"
-          aria-controls="my-table"
-          align="center"
-        ></b-pagination>
-    </b-container>
+      <b-row>
+        <b-col cols="2">
+          <b-card bg-variant="primary" text-variant="white" header="Отчет">
+            <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
+          </b-card>
+        </b-col>
+        <b-col cols="10">
+          <div>
+            <label for="example-datepicker">От</label>
+            <b-form-datepicker id="example-datepicker" v-model="value_from" class="mb-2"></b-form-datepicker>
+          </div>
+          <div>
+            <label for="example-datepicker2">До</label>
+            <b-form-datepicker id="example-datepicker2" v-model="value_to" class="mb-2"></b-form-datepicker>  
+          </div>
+          <CDRTABLE :items="items" />
+          <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="my-table"
+              align="center"
+          ></b-pagination>
+        </b-col>
+      </b-row>
   </div>
 </template>
 
@@ -128,7 +135,7 @@ export default {
       this.value_to = tomorrow.toISOString().split('T')[0]
       const startDate = this.value_from 
       const endDate = this.value_to
-      
+      console.log(startDate,endDate)
 
       axios.get(`http://172.16.25.43:4000/api/department/${this.$store.getters.USERDATA.departmentId}`)
         .then( res => {
@@ -145,6 +152,7 @@ export default {
           const data = res.data.data
           console.log(data)
           this.rows = res.data.count
+
           this.items = data.map( el => {
               return {
                 source: el.source,

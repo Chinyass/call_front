@@ -57,6 +57,7 @@ export default {
               this.$store.commit('SET_USERDATA', data);
               localStorage.setItem('user', JSON.stringify(data));
               this.$router.push({name: 'Home'})
+              document.location.reload();
           }).catch( e => {
               console.log('ot servera',e)
               this.incorrect_data = true

@@ -42,8 +42,7 @@ export default {
             ],
           selected: 'unknown',
           options: [
-            { value: 'unknown', text: 'unkown' },
-            { value: 'Концультация', text: 'Концультация' },
+            { value: 'unknown', text: 'unknown' },
           ],
           cdrid: null,
       }
@@ -71,7 +70,15 @@ export default {
         },
     },
     mounted(){
-        console.log('Table items',this.items)
+        axios.get(`http://172.16.25.43:4000/api/reason/department/${this.$store.getters.USERDATA.departmentId}`).then( res => {
+            const data = res.data
+            data.forEach(element => {
+                this.options.push({
+                    value: element.name ,
+                    text: element.name
+                })
+            });
+        })
     }
 }
 </script>
