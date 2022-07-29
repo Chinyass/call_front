@@ -4,7 +4,27 @@
       <b-row>
         <b-col cols="2">
           <b-card bg-variant="primary" text-variant="white" header="Отчет">
-            <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
+            <b-card-text 
+              v-for="report in report_data" :key="report.name"
+              
+            >
+              <b-list-group>
+                  <b-list-group-item >
+                    {{report.name}}
+                    <b-list-group>
+                      <b-list-group-item v-for="(report_name,index) in Object.keys(report.data)" :key="index"
+                      >
+                        <div v-if="report_name != 'total'">
+                          <small>{{report_name}}</small>
+                          <small class="count_rep">   {{report.data[report_name]}}</small>
+                        </div>
+                      </b-list-group-item>
+                    </b-list-group>
+                    Total <smal class="count_rep">{{report.data['total']}} </smal>
+                  </b-list-group-item>
+              </b-list-group>
+            </b-card-text>
+            Total {{rows}}
           </b-card>
         </b-col>
         <b-col cols="10">
@@ -47,7 +67,8 @@ export default {
       items: [],
       perPage: 10,
       currentPage: 1,
-      rows: null
+      rows: null,
+      report_data: []
     }
   },
   watch: {
@@ -74,6 +95,15 @@ export default {
               })
             })
 
+            axios.post('http://172.16.25.43:4000/api/cdr/department_report',{
+              departmentId: this.$store.getters.USERDATA.departmentId,
+              startDate : this.value_from, 
+              endDate : this.value_to
+            }).then( res => {
+              const data = res.data
+              this.report_data = data
+            })
+
       },
       value_to(newEnd,oldEnd){
           axios.post('http://172.16.25.43:4000/api/cdr/department_calls',{
@@ -97,6 +127,16 @@ export default {
                     }
                 })
               })
+          
+          axios.post('http://172.16.25.43:4000/api/cdr/department_report',{
+            departmentId: this.$store.getters.USERDATA.departmentId,
+            startDate : this.value_from, 
+            endDate : this.value_to
+          }).then( res => {
+            const data = res.data
+            this.report_data = data
+          })
+
       },
       currentPage(newPage, oldPage){
         axios.post('http://172.16.25.43:4000/api/cdr/department_calls',{
@@ -120,6 +160,15 @@ export default {
                   filename: 'http://172.16.25.45:4000/' + el.RecordFileName
                 }
             })
+        })
+
+        axios.post('http://172.16.25.43:4000/api/cdr/department_report',{
+          departmentId: this.$store.getters.USERDATA.departmentId,
+          startDate : this.value_from, 
+          endDate : this.value_to
+        }).then( res => {
+          const data = res.data
+          this.report_data = data
         })
     }
   },
@@ -166,6 +215,15 @@ export default {
           })
         }
       )
+
+      axios.post('http://172.16.25.43:4000/api/cdr/department_report',{
+        departmentId: this.$store.getters.USERDATA.departmentId,
+        startDate,
+        endDate
+      }).then( res => {
+        const data = res.data
+        this.report_data = data
+      })
   }
 }
 </script>
@@ -173,5 +231,8 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
  h2{
    font-family: "Poppins", sans-serif;
+ }
+ .count_rep{
+   color: blue
  }
 </style>
